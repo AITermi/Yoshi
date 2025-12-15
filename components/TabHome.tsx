@@ -14,7 +14,7 @@ export const TabHome: React.FC = () => {
             playsInline
             className="w-full h-full object-cover grayscale-[20%] contrast-110"
           >
-            <source src="https://aitermi-agents.com/uploads/yoshi/videos/home.mp4?v=3" type="video/mp4" />
+            <source src="https://aitermi-agents.com/uploads/yoshi/videos/home_web.mp4?v=3" type="video/mp4" />
           </video>
           {/* Gradient adjusted to be darker at the top for text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-blue-900/90 via-blue-900/40 to-transparent"></div>

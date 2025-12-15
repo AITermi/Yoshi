@@ -128,7 +128,10 @@ const App: React.FC = () => {
         </Suspense>
       </main>
 
-      <LegalFooter />
+      <LegalFooter 
+        onOpenPrivacy={() => setShowPrivacy(true)}
+        onOpenTerms={() => setShowTerms(true)}
+      />
       {showPrivacy && <PrivacyPolicyModal onClose={() => setShowPrivacy(false)} />}
       {showTerms && <TermsOfUseModal onClose={() => setShowTerms(false)} />}
 

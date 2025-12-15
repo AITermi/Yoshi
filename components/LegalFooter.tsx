@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, Shield, FileText, X, Minus, Plus, Moon, Sun, Type, Pause, ScanLine, Info, ArrowLeft, RotateCcw } from 'lucide-react';
+import { Eye, Shield, FileText, X, Minus, Plus, Moon, Sun, Type, Pause, ScanLine, Info, ArrowLeft, RotateCcw, Scale } from 'lucide-react';
 
 interface ModalProps {
   onClose: () => void;
+}
+
+interface LegalFooterProps {
+    onOpenPrivacy: () => void;
+    onOpenTerms: () => void;
 }
 
 // Reusable Full Screen Modal Wrapper for "Luxury" feel - Simplified Layout
@@ -27,8 +32,8 @@ const FullScreenModal: React.FC<{ title: string; children: React.ReactNode; onCl
       </button>
     </div>
 
-    {/* Scrollable Content Area - Removed inner card, reduced padding */}
-    <div className="flex-1 overflow-y-auto bg-white">
+    {/* Scrollable Content Area - Removed inner card, reduced padding, Added scroll-smooth */}
+    <div className="flex-1 overflow-y-auto bg-white scroll-smooth">
         <div className="max-w-4xl mx-auto px-5 py-8 md:px-8 md:py-12">
             <div className="text-slate-800 leading-relaxed font-light space-y-8">
                 {children}
@@ -97,7 +102,7 @@ export const AccessibilityStatement: React.FC<ModalProps> = ({ onClose }) => (
   </FullScreenModal>
 );
 
-export const LegalFooter: React.FC = () => {
+export const LegalFooter: React.FC<LegalFooterProps> = ({ onOpenPrivacy, onOpenTerms }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showAccessibility, setShowAccessibility] = useState(false);
   
@@ -209,6 +214,27 @@ export const LegalFooter: React.FC = () => {
                 <AccessibilityToggle label="הדגשת קישורים" icon={<Type size={16} />} isActive={highlightLinks} onClick={() => setHighlightLinks(!highlightLinks)} />
                 <AccessibilityToggle label="עצירת הבהובים" icon={<Pause size={16} />} isActive={stopAnimations} onClick={() => setStopAnimations(!stopAnimations)} />
                 <AccessibilityToggle label="מיקוד בולט" icon={<ScanLine size={16} />} isActive={enhancedFocus} onClick={() => setEnhancedFocus(!enhancedFocus)} />
+
+                {/* Legal Documents Links */}
+                <div className="pt-2 mt-1 border-t border-slate-200/50 space-y-2">
+                   <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider px-1">מידע משפטי</div>
+                   <div className="grid grid-cols-2 gap-2">
+                      <button 
+                          onClick={() => { setIsOpen(false); onOpenPrivacy(); }}
+                          className="flex items-center justify-center p-2 rounded-lg bg-white/50 text-slate-700 hover:bg-white hover:text-blue-900 transition-colors text-[10px] font-bold gap-1 shadow-sm border border-slate-100"
+                      >
+                          <Shield size={12} />
+                          פרטיות
+                      </button>
+                      <button 
+                          onClick={() => { setIsOpen(false); onOpenTerms(); }}
+                          className="flex items-center justify-center p-2 rounded-lg bg-white/50 text-slate-700 hover:bg-white hover:text-blue-900 transition-colors text-[10px] font-bold gap-1 shadow-sm border border-slate-100"
+                      >
+                          <Scale size={12} />
+                          תקנון
+                      </button>
+                   </div>
+                </div>
 
                 {/* Footer Actions */}
                 <div className="pt-3 mt-1 border-t border-slate-200/50 grid grid-cols-2 gap-2">
