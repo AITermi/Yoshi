@@ -76,14 +76,16 @@ const App: React.FC = () => {
   const handleTouchEnd = () => {
     if (isChatOpen) return;
 
+    // Swipe Left (Start > End) -> Move "Backwards" in RTL context (Services -> About -> Home)
     if (touchStart - touchEnd > 100) {
-      if (activeTab === Tab.HOME) setActiveTab(Tab.ABOUT);
-      if (activeTab === Tab.ABOUT) setActiveTab(Tab.SERVICES);
-    }
-
-    if (touchStart - touchEnd < -100) {
       if (activeTab === Tab.SERVICES) setActiveTab(Tab.ABOUT);
       if (activeTab === Tab.ABOUT) setActiveTab(Tab.HOME);
+    }
+
+    // Swipe Right (Start < End) -> Move "Forwards" in RTL context (Home -> About -> Services)
+    if (touchStart - touchEnd < -100) {
+      if (activeTab === Tab.HOME) setActiveTab(Tab.ABOUT);
+      if (activeTab === Tab.ABOUT) setActiveTab(Tab.SERVICES);
     }
   };
 
