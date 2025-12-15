@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
-import { Send, Facebook, CheckSquare, Square } from 'lucide-react';
+import { Send, Facebook, CheckSquare, Square, Sparkles } from 'lucide-react';
 
 interface ChatBarProps {
   onSendMessage: (text: string) => void;
   isChatOpen: boolean;
   isLoading: boolean;
+  onOpenPrivacy: () => void;
+  onOpenTerms: () => void;
 }
 
-export const ChatBar: React.FC<ChatBarProps> = ({ onSendMessage, isChatOpen, isLoading }) => {
+const QUICK_REPLIES = [
+  "מעוניין במעטפת ליווי מלאה",
+  "מעוניין בליווי חלקי",
+  "יש לי ספק",
+  "איך מאשרים מוצרים ליבוא ?",
+  "איך מתחילים ?"
+];
+
+export const ChatBar: React.FC<ChatBarProps> = ({ onSendMessage, isChatOpen, isLoading, onOpenPrivacy, onOpenTerms }) => {
   const [inputText, setInputText] = useState('');
   const [hasAgreed, setHasAgreed] = useState(false);
 
@@ -17,6 +27,11 @@ export const ChatBar: React.FC<ChatBarProps> = ({ onSendMessage, isChatOpen, isL
     setInputText('');
   };
 
+  const handleQuickReply = (text: string) => {
+    if (!hasAgreed || isLoading) return;
+    onSendMessage(text);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleSend();
@@ -24,29 +39,66 @@ export const ChatBar: React.FC<ChatBarProps> = ({ onSendMessage, isChatOpen, isL
   };
 
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] z-50 bg-slate-100 border-t border-slate-200 pb-safe">
+    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] z-50 bg-slate-100 border-t border-slate-200 pb-safe shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
       <div className="w-full flex flex-col">
         
-        {/* Terms Checkbox - Always visible if chat is not open */}
+        {/* Terms Checkbox - Visible only if chat is not open */}
         {!isChatOpen && (
-          <div className="px-4 py-2 bg-slate-100 flex items-center justify-center gap-2 text-xs text-slate-500 animate-in fade-in duration-300">
-            <button 
+          <div className="px-4 py-2 bg-slate-100 flex items-center justify-center gap-2 text-xs text-slate-500 animate-in fade-in duration-300 border-b border-slate-200/50">
+            <div 
+              className="flex items-center gap-2 group cursor-pointer"
               onClick={() => setHasAgreed(!hasAgreed)}
-              className="flex items-center gap-2 focus:outline-none hover:text-blue-900 transition-colors group"
             >
-              {hasAgreed ? 
-                <CheckSquare size={16} className="text-blue-900" /> : 
-                <Square size={16} className="text-slate-400 group-hover:text-slate-600" />
-              }
+              <button 
+                type="button"
+                className="focus:outline-none hover:text-blue-900 transition-colors"
+                aria-label="Toggle agreement"
+              >
+                {hasAgreed ? 
+                  <CheckSquare size={16} className="text-blue-900" /> : 
+                  <Square size={16} className="text-slate-400 group-hover:text-slate-600" />
+                }
+              </button>
               <span className={`tracking-wide transition-colors ${hasAgreed ? 'text-blue-900 font-medium' : ''}`}>
-                אני מאשר/ת את תנאי השימוש
+                אני מאשר שקראתי את{' '}
+                <span 
+                    onClick={(e) => { e.stopPropagation(); onOpenTerms(); }} 
+                    className="underline cursor-pointer hover:text-blue-900 hover:font-bold"
+                >
+                    תקנון השימוש
+                </span>{' '}
+                ו-
+                <span 
+                    onClick={(e) => { e.stopPropagation(); onOpenPrivacy(); }} 
+                    className="underline cursor-pointer hover:text-blue-900 hover:font-bold"
+                >
+                    הפרטיות
+                </span>
               </span>
-            </button>
+            </div>
           </div>
         )}
 
+        {/* Quick Replies - Visible only if Agreed AND Chat NOT open */}
+        {!isChatOpen && hasAgreed && (
+            <div className="w-full overflow-x-auto no-scrollbar py-3 px-3 flex gap-2 items-center bg-slate-50/50">
+                {QUICK_REPLIES.map((reply, index) => (
+                    <button
+                        key={index}
+                        onClick={() => handleQuickReply(reply)}
+                        disabled={isLoading}
+                        className="shrink-0 bg-white border border-blue-100 text-blue-900 text-xs px-4 py-2 rounded-full shadow-sm hover:bg-blue-900 hover:text-white hover:border-blue-900 hover:shadow-md transition-all duration-300 animate-in zoom-in-50 slide-in-from-bottom-2 fill-mode-forwards flex items-center gap-2"
+                        style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                        <Sparkles size={12} className="opacity-50" />
+                        {reply}
+                    </button>
+                ))}
+            </div>
+        )}
+
         {/* Input Row */}
-        <div className="flex items-end gap-2 px-3 pb-3 pt-1">
+        <div className="flex items-end gap-2 px-3 pb-3 pt-2 bg-slate-100">
           
           {/* Send Button - Right Side (First in RTL DOM) */}
           <button
@@ -68,8 +120,13 @@ export const ChatBar: React.FC<ChatBarProps> = ({ onSendMessage, isChatOpen, isL
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyDown={handleKeyPress}
-              placeholder="שאל את ה-AI שלנו..."
-              className="w-full bg-white text-slate-900 px-5 py-3 rounded-[24px] focus:outline-none placeholder-slate-400 font-light text-right shadow-sm border border-transparent focus:border-blue-200 transition-all"
+              disabled={!hasAgreed}
+              placeholder={hasAgreed ? "שאל את ה-AI שלנו..." : "יש לאשר את התקנון כדי להתחיל"}
+              className={`w-full bg-white text-slate-900 px-5 py-3 rounded-[24px] focus:outline-none font-light text-right shadow-sm border transition-all ${
+                  hasAgreed 
+                  ? 'placeholder-slate-400 border-transparent focus:border-blue-200' 
+                  : 'placeholder-slate-300 border-slate-100 bg-slate-50 cursor-not-allowed'
+              }`}
               dir="rtl"
             />
           </div>

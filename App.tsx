@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { ChatBar } from './components/ChatBar';
-import { LegalFooter } from './components/LegalFooter';
+import { LegalFooter, PrivacyPolicyModal, TermsOfUseModal } from './components/LegalFooter';
 import { generateSessionId, sendMessageToAgent } from './services/chatService';
 import { Tab, Message } from './types';
 import { Loader2 } from 'lucide-react';
@@ -19,6 +19,10 @@ const App: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  
+  // Modal States
+  const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
 
   const handleTabChange = (tab: Tab) => {
     if (isChatOpen) {
@@ -118,11 +122,15 @@ const App: React.FC = () => {
       </main>
 
       <LegalFooter />
+      {showPrivacy && <PrivacyPolicyModal onClose={() => setShowPrivacy(false)} />}
+      {showTerms && <TermsOfUseModal onClose={() => setShowTerms(false)} />}
 
       <ChatBar 
         onSendMessage={handleSendMessage} 
         isChatOpen={isChatOpen} 
         isLoading={isTyping}
+        onOpenPrivacy={() => setShowPrivacy(true)}
+        onOpenTerms={() => setShowTerms(true)}
       />
     </div>
   );

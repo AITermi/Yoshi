@@ -52,7 +52,7 @@ const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title
     </div>
 );
 
-const PrivacyPolicyModal: React.FC<ModalProps> = ({ onClose }) => (
+export const PrivacyPolicyModal: React.FC<ModalProps> = ({ onClose }) => (
   <FullScreenModal title="מדיניות פרטיות" onClose={onClose}>
         <p className="text-base md:text-lg font-serif text-slate-900 leading-relaxed">
           מדיניות פרטיות זו חלה על כלל האתרים, הממשקים והשירותים המופעלים תחת תשתית זו (להלן: "האתר" או "השירות"), ומסבירה כיצד נאסף, נעשה שימוש ונשמר מידע הנמסר על-ידי משתמשי הקצה.
@@ -133,7 +133,7 @@ const PrivacyPolicyModal: React.FC<ModalProps> = ({ onClose }) => (
   </FullScreenModal>
 );
 
-const TermsOfUseModal: React.FC<ModalProps> = ({ onClose }) => (
+export const TermsOfUseModal: React.FC<ModalProps> = ({ onClose }) => (
   <FullScreenModal title="תנאי שימוש" onClose={onClose}>
         <p className="text-base md:text-lg font-serif text-slate-900 leading-relaxed">
           השימוש באתר ו/או בשירותים המוצעים בו כפוף לתנאי שימוש אלו. גלישה באתר או שימוש בשירות מהווים הסכמה מלאה ומחייבת לתנאים המפורטים להלן.
@@ -218,7 +218,7 @@ const TermsOfUseModal: React.FC<ModalProps> = ({ onClose }) => (
   </FullScreenModal>
 );
 
-const AccessibilityStatement: React.FC<ModalProps> = ({ onClose }) => (
+export const AccessibilityStatement: React.FC<ModalProps> = ({ onClose }) => (
   <FullScreenModal title="הצהרת נגישות" onClose={onClose}>
         <p className="text-base md:text-lg font-serif text-slate-900 leading-relaxed">
           <strong>YOSHI - פתרונות יבוא</strong> רואה חשיבות רבה במתן שירות שוויוני לכלל הלקוחות והגולשים ובשיפור השירות הניתן ללקוחות עם מוגבלות. אנו משקיעים משאבים רבים בהנגשת האתר והתכנים שבו, על מנת להפוך אותם לזמינים, ידידותיים ונוחים לשימוש עבור אנשים עם מוגבלויות.
@@ -266,8 +266,6 @@ const AccessibilityStatement: React.FC<ModalProps> = ({ onClose }) => (
 export const LegalFooter: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showAccessibility, setShowAccessibility] = useState(false);
-  const [showPrivacy, setShowPrivacy] = useState(false);
-  const [showTerms, setShowTerms] = useState(false);
   
   // Accessibility States
   const [fontSizeLevel, setFontSizeLevel] = useState(0); // 0..3
@@ -358,9 +356,7 @@ export const LegalFooter: React.FC = () => {
   return (
     <>
       {showAccessibility && <AccessibilityStatement onClose={() => setShowAccessibility(false)} />}
-      {showPrivacy && <PrivacyPolicyModal onClose={() => setShowPrivacy(false)} />}
-      {showTerms && <TermsOfUseModal onClose={() => setShowTerms(false)} />}
-
+      
       {/* Menu Overlay */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" onClick={() => setIsOpen(false)}></div>
@@ -479,23 +475,7 @@ export const LegalFooter: React.FC = () => {
         </button>
       </div>
 
-      {/* Floating Legal Links (Bottom Left) */}
-      <div className="fixed bottom-24 left-4 z-40 flex flex-col gap-2 opacity-70 hover:opacity-100 transition-opacity">
-        <div 
-            className="bg-white/80 backdrop-blur p-2 rounded-full shadow-sm cursor-pointer border border-gray-200 hover:scale-105 transition-transform" 
-            title="מדיניות פרטיות"
-            onClick={() => setShowPrivacy(true)}
-        >
-          <Shield size={16} className="text-slate-600" />
-        </div>
-        <div 
-            className="bg-white/80 backdrop-blur p-2 rounded-full shadow-sm cursor-pointer border border-gray-200 hover:scale-105 transition-transform" 
-            title="תנאי שימוש"
-            onClick={() => setShowTerms(true)}
-        >
-          <FileText size={16} className="text-slate-600" />
-        </div>
-      </div>
+      {/* Floating Buttons removed from here */}
     </>
   );
 };

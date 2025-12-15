@@ -130,10 +130,15 @@ export const TabHome: React.FC = () => {
         <p className="text-blue-200 text-xs mb-8 max-w-xs font-light leading-relaxed">
           נשמח לבחון יחד את הרעיון, המוצר והכדאיות – ולבנות תהליך יבוא שמתאים לכם.
         </p>
-        <button className="border border-white/30 px-6 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-blue-900 transition-all flex items-center gap-3 bg-white/10 backdrop-blur-sm z-10">
-          השאירו פרטים אצל העוזר AI שלנו
+        <a 
+          href="https://wa.me/972585119298?text=מעוניין%20לקבל%20הצעת%20מחיר"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border border-white/30 px-6 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-blue-900 transition-all flex items-center gap-3 bg-white/10 backdrop-blur-sm z-10"
+        >
+         להצעת מחיר
           <ArrowLeft size={14} />
-        </button>
+        </a>
       </div>
     </div>
   );

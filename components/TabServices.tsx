@@ -76,10 +76,14 @@ export const TabServices: React.FC = () => {
             />
             <div className="absolute inset-0 bg-blue-900/80 flex flex-col items-center justify-center text-center px-8 border-y border-white/10">
                 <h4 className="font-light text-2xl text-white mb-2 tracking-wide">זקוקים להצעת מחיר?</h4>
-                <p className="text-xs text-blue-100 mb-6 font-light uppercase tracking-widest">נציגי השירות שלנו זמינים עבורך</p>
-                <button className="bg-white text-blue-900 text-xs font-bold px-8 py-3 hover:bg-slate-100 transition-colors uppercase tracking-widest">
-                    דברו איתנו בצ'אט
-                </button>
+                <a 
+                  href="https://wa.me/972585119298?text=מעוניין%20לקבל%20הצעת%20מחיר"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white text-blue-900 text-xs font-bold px-8 py-3 hover:bg-slate-100 transition-colors uppercase tracking-widest inline-block"
+                >
+                    להצעת מחיר
+                </a>
             </div>
         </div>
     </div>

@@ -15,23 +15,24 @@ export const TabAbout: React.FC = () => {
         </p>
       </div>
 
-      {/* Image Split Section - Text Moved Here */}
-      <div className="relative h-80 md:h-96 w-full">
-        <img 
-          src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" 
-          alt="Business Strategy" 
-          className="w-full h-full object-cover grayscale-[30%]"
-        />
-        {/* Navy Blue Overlay */}
-        <div className="absolute inset-0 bg-blue-900/80"></div>
+      {/* Image Split Section - Content Positioned Top Right */}
+      <div className="relative h-80 md:h-96 w-full flex items-start justify-start overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" 
+            alt="Business Strategy" 
+            className="w-full h-full object-cover grayscale-[30%]"
+          />
+          {/* Gradient matching Home Tab style for consistency and readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/90 via-blue-900/40 to-transparent"></div>
+        </div>
         
-        {/* Content Overlay */}
-        <div className="absolute bottom-0 right-0 left-0 p-6 md:p-8 border-t border-white/10 backdrop-blur-sm bg-black/10 flex flex-col justify-end">
+        <div className="relative z-10 p-6 md:p-10 w-full max-w-3xl mt-4 md:mt-0">
           <div className="flex items-center gap-4 mb-3">
-            <div className="w-12 h-[1px] bg-white"></div>
-            <h3 className="font-bold text-white uppercase tracking-widest text-sm">החזון שלנו</h3>
+            <div className="w-12 h-[1px] bg-white/80"></div>
+            <h3 className="font-bold text-white/90 uppercase tracking-widest text-sm">החזון שלנו</h3>
           </div>
-          <p className="text-blue-50 text-base md:text-lg font-light leading-relaxed max-w-3xl pr-16">
+          <p className="text-blue-100 text-base md:text-lg font-light leading-relaxed border-r border-white/30 pr-4 max-w-2xl">
             החברה מתמחה בליווי תהליכי ייבוא מקצה לקצה, תוך התאמה מלאה לצרכים העסקיים, לרמת הסיכון ולשלב ההתפתחות של כל לקוח.
           </p>
         </div>
