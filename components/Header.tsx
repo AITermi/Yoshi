@@ -9,14 +9,16 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
   return (
-    <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-screen-md z-30 bg-white text-slate-900 shadow-sm transition-all duration-300 border-x border-slate-200">
-      <div className="w-full">
-        {/* Top Row: Brand - Fixed Height 76px */}
-        <div className="h-[76px] px-6 flex items-center justify-center border-b border-slate-50 relative z-20 bg-white">
+    <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] z-30 bg-white text-slate-900 shadow-sm transition-all duration-300 border-x border-slate-200">
+      <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between md:h-[80px]">
+        {/* Brand Section */}
+        <div className="h-[76px] md:h-full px-6 flex items-center justify-center md:justify-start border-b border-slate-50 md:border-b-0 relative z-20 bg-white md:bg-transparent shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-blue-900 flex items-center justify-center shadow-sm">
-              <span className="font-serif font-black text-white text-xl">Y</span>
-            </div>
+            <img 
+              src="https://aitermi-agents.com/uploads/yoshi/images/logo.png?v=3" 
+              alt="YOSHI Logo" 
+              className="w-12 h-12 object-contain mix-blend-multiply"
+            />
             <div>
               <h1 className="font-light text-2xl tracking-[0.2em] uppercase leading-none text-blue-900">YOSHI</h1>
               <p className="text-[10px] text-slate-500 uppercase tracking-[0.3em] leading-none mt-1">Import Solutions</p>
@@ -24,8 +26,8 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
           </div>
         </div>
 
-        {/* Bottom Row: Tabs - Fixed Height ~54px */}
-        <nav className="h-[54px] flex items-center justify-center gap-8 px-6 bg-white/95 backdrop-blur-sm">
+        {/* Tabs Section */}
+        <nav className="h-[54px] md:h-full flex items-center justify-center gap-8 px-6 bg-white/95 backdrop-blur-sm md:bg-transparent">
           <button
             onClick={() => onTabChange(Tab.HOME)}
             className={`group flex flex-col items-center justify-center h-full relative px-2 transition-all duration-300 ${

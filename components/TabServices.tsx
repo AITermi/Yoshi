@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClipboardList, Scale, Search, Calculator, Package, FileCheck, Tags, RefreshCw, ArrowLeft } from 'lucide-react';
+import { ClipboardList, Scale, Search, Calculator, Package, FileCheck, Tags, RefreshCw } from 'lucide-react';
 
 export const TabServices: React.FC = () => {
   const services = [
@@ -52,9 +52,10 @@ export const TabServices: React.FC = () => {
             <h2 className="text-3xl font-light text-blue-900 tracking-tight">השירותים שלנו</h2>
         </div>
 
-        <div className="grid grid-cols-1 border-t border-slate-200">
+        {/* Services Grid: 1 col on mobile, 2 cols on tablet/desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-slate-200">
             {services.map((s, idx) => (
-                <div key={idx} className="group flex items-start p-6 bg-white border-b border-slate-200 hover:bg-blue-900 transition-colors duration-300 cursor-pointer gap-5">
+                <div key={idx} className={`group flex items-start p-6 bg-white border-b border-slate-200 hover:bg-blue-900 transition-colors duration-300 cursor-pointer gap-5 ${idx % 2 === 0 ? 'md:border-l' : ''}`}>
                     <div className="text-blue-900 group-hover:text-white transition-colors shrink-0 mt-1">
                         {s.icon}
                     </div>

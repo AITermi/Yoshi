@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { ChatBar } from './components/ChatBar';
-import { TabHome } from './components/TabHome';
-import { TabAbout } from './components/TabAbout';
-import { TabServices } from './components/TabServices';
-import { ChatOverlay } from './components/ChatOverlay';
 import { LegalFooter } from './components/LegalFooter';
 import { generateSessionId, sendMessageToAgent } from './services/chatService';
 import { Tab, Message } from './types';
+import { Loader2 } from 'lucide-react';
+
+// Lazy Load Components with Named Export handling
+// This ensures that the main bundle is small and each tab/overlay is loaded only when needed
+const TabHome = lazy(() => import('./components/TabHome').then(module => ({ default: module.TabHome })));
+const TabAbout = lazy(() => import('./components/TabAbout').then(module => ({ default: module.TabAbout })));
+const TabServices = lazy(() => import('./components/TabServices').then(module => ({ default: module.TabServices })));
+const ChatOverlay = lazy(() => import('./components/ChatOverlay').then(module => ({ default: module.ChatOverlay })));
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>(Tab.HOME);
@@ -83,26 +87,34 @@ const App: React.FC = () => {
     <div className="flex flex-col h-screen bg-slate-200 font-sans">
       <Header activeTab={activeTab} onTabChange={handleTabChange} />
 
-      {/* Main Content Area - Constrained Max Width */}
+      {/* Main Content Area - Constrained Max Width 1200px */}
       <main 
-        className="flex-1 overflow-y-auto no-scrollbar pt-[130px] relative bg-slate-50 max-w-screen-md mx-auto w-full shadow-2xl border-x border-slate-200"
+        className="flex-1 overflow-y-auto no-scrollbar pt-[130px] md:pt-[80px] relative bg-slate-50 max-w-[1200px] mx-auto w-full shadow-2xl border-x border-slate-200"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <div className={isChatOpen ? 'hidden' : 'block animate-fade-in'}>
-          {activeTab === Tab.HOME && <TabHome />}
-          {activeTab === Tab.ABOUT && <TabAbout />}
-          {activeTab === Tab.SERVICES && <TabServices />}
-        </div>
+        <Suspense fallback={
+          <div className="flex items-center justify-center h-full w-full bg-slate-50">
+             <Loader2 className="animate-spin text-blue-900 opacity-30" size={48} strokeWidth={1} />
+          </div>
+        }>
+            <div className={isChatOpen ? 'hidden' : 'block'}>
+              <div key={activeTab} className="animate-tab-fade">
+                {activeTab === Tab.HOME && <TabHome />}
+                {activeTab === Tab.ABOUT && <TabAbout />}
+                {activeTab === Tab.SERVICES && <TabServices />}
+              </div>
+            </div>
 
-        {isChatOpen && (
-          <ChatOverlay 
-            messages={messages} 
-            isTyping={isTyping} 
-            onClose={handleCloseChat}
-          />
-        )}
+            {isChatOpen && (
+              <ChatOverlay 
+                messages={messages} 
+                isTyping={isTyping} 
+                onClose={handleCloseChat}
+              />
+            )}
+        </Suspense>
       </main>
 
       <LegalFooter />

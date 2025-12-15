@@ -4,8 +4,8 @@ import { ArrowLeft, Briefcase, TrendingUp, Lightbulb, RefreshCw, ShieldCheck, Sc
 export const TabHome: React.FC = () => {
   return (
     <div className="bg-slate-50 min-h-screen pb-32">
-      {/* Hero Section */}
-      <div className="relative h-[65vh] w-full overflow-hidden flex items-end">
+      {/* Hero Section - Content positioned Top-Right */}
+      <div className="relative h-[65vh] md:h-[500px] w-full overflow-hidden flex items-start justify-start">
         <div className="absolute inset-0 z-0">
           <video 
             autoPlay 
@@ -13,15 +13,14 @@ export const TabHome: React.FC = () => {
             loop 
             playsInline
             className="w-full h-full object-cover grayscale-[20%] contrast-110"
-            poster="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop"
           >
-            {/* Shipping / Logistics container terminal video */}
-            <source src="https://videos.pexels.com/video-files/3063467/3063467-hd_1920_1080_25fps.mp4" type="video/mp4" />
+            <source src="https://aitermi-agents.com/uploads/yoshi/videos/home.mp4?v=3" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/50 to-transparent"></div>
+          {/* Gradient adjusted to be darker at the top for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/90 via-blue-900/40 to-transparent"></div>
         </div>
 
-        <div className="relative z-10 p-8 w-full border-b border-white/20">
+        <div className="relative z-10 p-6 md:p-10 w-full max-w-2xl mt-4 md:mt-0">
           <div className="flex items-center gap-3 mb-4">
              <div className="h-[1px] w-12 bg-white/80"></div>
              <span className="text-white/90 text-[10px] font-bold tracking-[0.2em] uppercase">
@@ -37,9 +36,9 @@ export const TabHome: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Intro Text */}
-      <div className="bg-white p-8 border-b border-slate-100">
-        <div className="space-y-4 text-slate-600 font-light leading-relaxed text-sm">
+      {/* Main Intro Text - Reduced padding */}
+      <div className="bg-white p-6 md:p-8 border-b border-slate-100">
+        <div className="space-y-3 text-slate-600 font-light leading-relaxed text-sm md:text-base md:max-w-4xl">
           <p>
             <strong className="text-blue-900 font-bold text-lg block mb-2">יושי – פתרונות יבוא בע״מ</strong>
             מספקת ליווי מקצועי ומלא בתהליכי יבוא לישראל, החל מאפיון מוצרים ותכנון יבוא, דרך בדיקת חוקיות ורגולציית יבוא, איתור ספקים ויצרנים בארץ ובחו״ל, בניית אסטרטגיית יבוא והערכת עלויות, יבוא דוגמיות וטיפול באישורי תקינה ורגולציה.
@@ -51,42 +50,42 @@ export const TabHome: React.FC = () => {
       </div>
 
       {/* How we work */}
-      <div className="bg-blue-50/50 p-8 border-b border-slate-100">
+      <div className="bg-blue-50/50 p-6 md:p-8 border-b border-slate-100">
         <h3 className="text-blue-900 text-xl font-light mb-2 tracking-wide">איך אנחנו עובדים</h3>
         <p className="text-slate-600 text-sm">
           ליווי מקצועי, שקוף ומבוסס תהליך – מותאם לעסק שלך ולשלב שבו הוא נמצא.
         </p>
       </div>
 
-      {/* "Who is it for?" - Grid */}
-      <div className="bg-slate-50 py-10 px-6">
-        <h3 className="text-blue-900 text-xl font-light mb-8 text-center tracking-wide">למי השירות מתאים?</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center gap-3">
+      {/* "Who is it for?" - Grid - Adjusted for desktop to 4 cols */}
+      <div className="bg-slate-50 py-8 px-6 md:px-8">
+        <h3 className="text-blue-900 text-xl font-light mb-6 text-center tracking-wide">למי השירות מתאים?</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center gap-3 hover:border-blue-200 transition-colors">
             <Briefcase className="text-blue-900" size={24} strokeWidth={1.5} />
             <span className="text-xs font-bold text-slate-800 leading-tight">עסקים שרוצים להתחיל לייבא בפעם הראשונה</span>
           </div>
-          <div className="bg-white p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center gap-3">
+          <div className="bg-white p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center gap-3 hover:border-blue-200 transition-colors">
             <TrendingUp className="text-blue-900" size={24} strokeWidth={1.5} />
             <span className="text-xs font-bold text-slate-800 leading-tight">יבואנים בתחילת הדרך</span>
           </div>
-          <div className="bg-white p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center gap-3">
+          <div className="bg-white p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center gap-3 hover:border-blue-200 transition-colors">
             <RefreshCw className="text-blue-900" size={24} strokeWidth={1.5} />
             <span className="text-xs font-bold text-slate-800 leading-tight">עסקים שמייבאים ורוצים לשפר רווחיות ותהליכים</span>
           </div>
-          <div className="bg-white p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center gap-3">
+          <div className="bg-white p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center gap-3 hover:border-blue-200 transition-colors">
             <Lightbulb className="text-blue-900" size={24} strokeWidth={1.5} />
             <span className="text-xs font-bold text-slate-800 leading-tight">יזמים עם מוצר ורעיון – לפני התחייבות מסחרית</span>
           </div>
         </div>
       </div>
 
-      {/* "Why Work With Us?" - List */}
-      <div className="bg-white py-10 px-8 border-t border-slate-100">
-        <h3 className="text-blue-900 text-xl font-light mb-8 text-right tracking-wide">למה לעבוד איתנו?</h3>
-        <div className="space-y-6">
+      {/* "Why Work With Us?" - List - Grid on desktop */}
+      <div className="bg-white py-8 px-6 md:px-8 border-t border-slate-100">
+        <h3 className="text-blue-900 text-xl font-light mb-6 text-right tracking-wide">למה לעבוד איתנו?</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
           <div className="flex gap-4 items-center">
-            <div className="bg-blue-50 p-2 rounded-full">
+            <div className="bg-blue-50 p-2 rounded-full shrink-0">
               <ShieldCheck size={18} className="text-blue-900" />
             </div>
             <div>
@@ -95,7 +94,7 @@ export const TabHome: React.FC = () => {
           </div>
           
           <div className="flex gap-4 items-center">
-            <div className="bg-blue-50 p-2 rounded-full">
+            <div className="bg-blue-50 p-2 rounded-full shrink-0">
               <FileCheck size={18} className="text-blue-900" />
             </div>
             <div>
@@ -104,7 +103,7 @@ export const TabHome: React.FC = () => {
           </div>
 
           <div className="flex gap-4 items-center">
-            <div className="bg-blue-50 p-2 rounded-full">
+            <div className="bg-blue-50 p-2 rounded-full shrink-0">
               <Scale size={18} className="text-blue-900" />
             </div>
             <div>
@@ -113,7 +112,7 @@ export const TabHome: React.FC = () => {
           </div>
 
            <div className="flex gap-4 items-center">
-            <div className="bg-blue-50 p-2 rounded-full">
+            <div className="bg-blue-50 p-2 rounded-full shrink-0">
               <Users size={18} className="text-blue-900" />
             </div>
             <div>
@@ -131,7 +130,7 @@ export const TabHome: React.FC = () => {
         <p className="text-blue-200 text-xs mb-8 max-w-xs font-light leading-relaxed">
           נשמח לבחון יחד את הרעיון, המוצר והכדאיות – ולבנות תהליך יבוא שמתאים לכם.
         </p>
-        <button className="border border-white/30 px-6 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-blue-900 transition-all flex items-center gap-3 bg-white/10 backdrop-blur-sm">
+        <button className="border border-white/30 px-6 py-4 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-blue-900 transition-all flex items-center gap-3 bg-white/10 backdrop-blur-sm z-10">
           השאירו פרטים אצל העוזר AI שלנו
           <ArrowLeft size={14} />
         </button>

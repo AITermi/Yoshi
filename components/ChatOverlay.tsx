@@ -37,9 +37,9 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({ messages, isTyping, on
   }, [messages, isTyping, messages.length]);
 
   return (
-    // Fixed position, starting from top-[76px] to allow Logo (76px height) to be visible.
+    // Fixed position, starting from top-[76px] (mobile) or top-[80px] (desktop)
     // Centered horizontally with max-width to match main app layout.
-    <div className="fixed top-[76px] bottom-0 left-1/2 -translate-x-1/2 w-full max-w-screen-md z-40 bg-slate-50 flex flex-col overflow-hidden animate-in slide-in-from-bottom-2 duration-300 border-x border-slate-200 shadow-2xl">
+    <div className="fixed top-[76px] md:top-[80px] bottom-0 left-1/2 -translate-x-1/2 w-full max-w-screen-xl z-40 bg-slate-50 flex flex-col overflow-hidden animate-in slide-in-from-bottom-2 duration-300 border-x border-slate-200 shadow-2xl">
       
       {/* Back Button / Header for Chat */}
       <div className="w-full h-[54px] px-6 flex items-center justify-between bg-white border-b border-slate-100 shadow-sm shrink-0">

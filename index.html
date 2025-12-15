@@ -28,6 +28,15 @@
         background: rgba(15, 23, 42, 0.85);
         backdrop-filter: blur(12px);
       }
+      
+      /* Tab Animation */
+      @keyframes tabFadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-tab-fade {
+        animation: tabFadeIn 0.4s ease-out forwards;
+      }
     </style>
   <script type="importmap">
 {
