@@ -7,7 +7,6 @@ import { Tab, Message } from './types';
 import { Loader2 } from 'lucide-react';
 
 // Lazy Load Components with Named Export handling
-// This ensures that the main bundle is small and each tab/overlay is loaded only when needed
 const TabHome = lazy(() => import('./components/TabHome').then(module => ({ default: module.TabHome })));
 const TabAbout = lazy(() => import('./components/TabAbout').then(module => ({ default: module.TabAbout })));
 const TabServices = lazy(() => import('./components/TabServices').then(module => ({ default: module.TabServices })));
@@ -76,16 +75,22 @@ const App: React.FC = () => {
   const handleTouchEnd = () => {
     if (isChatOpen) return;
 
-    // Swipe Left (Start > End) -> Move "Backwards" in RTL context (Services -> About -> Home)
-    if (touchStart - touchEnd > 100) {
-      if (activeTab === Tab.SERVICES) setActiveTab(Tab.ABOUT);
-      if (activeTab === Tab.ABOUT) setActiveTab(Tab.HOME);
+    // INVERTED SWIPE LOGIC
+    // Previous: Left Swipe (> 100) -> Next.
+    // New: Right Swipe (< -100) -> Next (Home -> About -> Services).
+    
+    const swipeDistance = touchStart - touchEnd;
+
+    // Swipe Right (Move Forward)
+    if (swipeDistance < -100) { 
+      if (activeTab === Tab.HOME) setActiveTab(Tab.ABOUT);
+      else if (activeTab === Tab.ABOUT) setActiveTab(Tab.SERVICES);
     }
 
-    // Swipe Right (Start < End) -> Move "Forwards" in RTL context (Home -> About -> Services)
-    if (touchStart - touchEnd < -100) {
-      if (activeTab === Tab.HOME) setActiveTab(Tab.ABOUT);
-      if (activeTab === Tab.ABOUT) setActiveTab(Tab.SERVICES);
+    // Swipe Left (Move Backward)
+    if (swipeDistance > 100) { 
+      if (activeTab === Tab.SERVICES) setActiveTab(Tab.ABOUT);
+      else if (activeTab === Tab.ABOUT) setActiveTab(Tab.HOME);
     }
   };
 

@@ -63,16 +63,17 @@ export const TabAbout: React.FC = () => {
          </div>
       </div>
       
-      {/* Founder Section */}
-      <div className="bg-slate-50 p-6 md:p-8 border-y border-slate-200">
-         <h3 className="font-light text-xl mb-6 text-slate-900">על המייסד</h3>
-         <div className="flex flex-col md:flex-row items-start gap-6">
-            <div className="w-20 h-20 md:w-32 md:h-32 bg-blue-200 shrink-0 overflow-hidden shadow-sm">
+      {/* Founder Section - Centered & Circular Profile */}
+      <div className="bg-slate-50 p-8 md:p-12 border-y border-slate-200 text-center">
+         <h3 className="font-light text-xl mb-8 text-slate-900 tracking-wide">על המייסד</h3>
+         <div className="flex flex-col items-center gap-6">
+            <div className="w-32 h-32 md:w-40 md:h-40 bg-blue-200 shrink-0 overflow-hidden shadow-lg rounded-full border-4 border-white ring-1 ring-slate-100">
                 <img src="https://aitermi-agents.com/uploads/yoshi/images/profile.jpg?v=3" className="w-full h-full object-cover grayscale contrast-125" alt="Yonatan Shraga" />
             </div>
-            <div className="max-w-2xl">
-                <h4 className="font-bold text-lg text-blue-900">יהונתן שרגא</h4>
-                <p className="text-sm text-slate-600 leading-relaxed mt-2">
+            <div className="max-w-2xl mx-auto">
+                <h4 className="font-bold text-xl text-blue-900 mb-3">יהונתן שרגא</h4>
+                <div className="w-12 h-0.5 bg-blue-900/20 mx-auto mb-4"></div>
+                <p className="text-sm md:text-base text-slate-600 leading-relaxed font-light">
                     החברה נוסדה על-ידי יהונתן שרגא, מהנדס חשמל, בעל ניסיון מעשי של כעשור בתחום הייבוא והעבודה מול ספקים, משלחים, מכס וגורמי רגולציה.
                 </p>
             </div>
