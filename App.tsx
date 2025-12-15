@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, Suspense, lazy, useRef } from 'react';
 import { Header } from './components/Header';
 import { ChatBar } from './components/ChatBar';
 import { LegalFooter, PrivacyPolicyModal, TermsOfUseModal } from './components/LegalFooter';
@@ -23,12 +23,18 @@ const App: React.FC = () => {
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
 
+  // Scroll Container Ref
+  const mainRef = useRef<HTMLElement>(null);
+
   const handleTabChange = (tab: Tab) => {
     if (isChatOpen) {
       setIsChatOpen(false);
     }
     setActiveTab(tab);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll the main container to top, not the window
+    if (mainRef.current) {
+      mainRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleCloseChat = () => {
@@ -83,23 +89,24 @@ const App: React.FC = () => {
 
     // Swipe Right (Move Forward)
     if (swipeDistance < -100) { 
-      if (activeTab === Tab.HOME) setActiveTab(Tab.ABOUT);
-      else if (activeTab === Tab.ABOUT) setActiveTab(Tab.SERVICES);
+      if (activeTab === Tab.HOME) handleTabChange(Tab.ABOUT);
+      else if (activeTab === Tab.ABOUT) handleTabChange(Tab.SERVICES);
     }
 
     // Swipe Left (Move Backward)
     if (swipeDistance > 100) { 
-      if (activeTab === Tab.SERVICES) setActiveTab(Tab.ABOUT);
-      else if (activeTab === Tab.ABOUT) setActiveTab(Tab.HOME);
+      if (activeTab === Tab.SERVICES) handleTabChange(Tab.ABOUT);
+      else if (activeTab === Tab.ABOUT) handleTabChange(Tab.HOME);
     }
   };
 
   return (
-    <div className="flex flex-col h-screen bg-slate-200 font-sans">
+    <div className="flex flex-col h-[100dvh] bg-slate-200 font-sans overflow-hidden">
       <Header activeTab={activeTab} onTabChange={handleTabChange} />
 
       {/* Main Content Area - Constrained Max Width 1200px */}
       <main 
+        ref={mainRef}
         className="flex-1 overflow-y-auto no-scrollbar pt-[130px] md:pt-[80px] relative bg-slate-50 max-w-[1200px] mx-auto w-full shadow-2xl border-x border-slate-200"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}

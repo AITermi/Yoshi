@@ -3,7 +3,7 @@ import { ArrowLeft, Briefcase, TrendingUp, Lightbulb, RefreshCw, ShieldCheck, Sc
 
 export const TabHome: React.FC = () => {
   return (
-    <div className="bg-slate-50 min-h-screen pb-32">
+    <div className="bg-slate-50 min-h-screen pb-48">
       {/* Hero Section - Content positioned Top-Right */}
       <div className="relative h-[65vh] md:h-[500px] w-full overflow-hidden flex items-start justify-start">
         <div className="absolute inset-0 z-0">

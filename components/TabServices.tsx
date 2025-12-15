@@ -46,7 +46,7 @@ export const TabServices: React.FC = () => {
   ];
 
   return (
-    <div className="pb-32 bg-slate-50 min-h-screen pt-4">
+    <div className="pb-48 bg-slate-50 min-h-screen pt-4">
         <div className="px-6 mb-8 mt-4">
             <h2 className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">Our Expertise</h2>
             <h2 className="text-3xl font-light text-blue-900 tracking-tight">השירותים שלנו</h2>

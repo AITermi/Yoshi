@@ -3,7 +3,7 @@ import { ShieldCheck, Users, Globe } from 'lucide-react';
 
 export const TabAbout: React.FC = () => {
   return (
-    <div className="bg-white min-h-screen pb-32">
+    <div className="bg-white min-h-screen pb-48">
       {/* Top Banner - Text Only, Minimal */}
       <div className="pt-12 pb-8 px-6 md:px-8 bg-slate-50 border-b border-slate-200">
         <h2 className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">About Yoshi</h2>
